@@ -46,12 +46,13 @@ body {
     margin-top: 60px;
     width: 100%;
     height: calc(100vh - 60px);
-    background: url('../img/header.png');
+    background: url('../img/header.jpeg');
     background-size: cover;
     background-repeat: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0,0,0,.5) !important;
 }
 
 .content{
