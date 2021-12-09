@@ -45,6 +45,6 @@ app.get("/:blog", (req,res)=>{
 app.use((req, res)=>{
     res.json("404 Not Found")
 })
-app.listen("5000", ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log("listening in port 5000 ...");
 })
