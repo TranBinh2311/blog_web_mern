@@ -38,13 +38,23 @@ app.post('/upload', (req, res) => {
 })
 
 
+app.get("/admin", (req, res)=>{
+    res.sendFile(path.join(initial_path, "dashboard.html"));
+})
+
 app.get("/:blog", (req,res)=>{
     res.sendFile(path.join(initial_path, "blog.html"));
 })
 
+app.get("/:blog/editor", (req,res)=>{
+    res.sendFile(path.join(initial_path, "editor.html"));
+})
+
+
+
 app.use((req, res)=>{
     res.json("404 Not Found")
 })
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT || 3000 , ()=>{
     console.log("listening in port 5000 ...");
 })

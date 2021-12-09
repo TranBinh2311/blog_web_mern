@@ -52,24 +52,36 @@ let months = ["Jan" ,"Fed", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 
 publishBtn.addEventListener('click', ()=>{
     if(articleFeild.value.length && blogTitleField.value.length){
-        let letters = 'asdasdasfsafsdfasdfasdfasdfas';
-        let blogTitle = blogTitleField.value.split(" ").join("-");
-        let id = '';
 
-        for(let i =0; i< 4; i++){
-            id += letters[Math.floor(Math.random() * letters.length)];
+
+        let docName;
+        if(blogID[0] == "editor"){
+            let letters = 'asdasdasfsafsdfasdfasdfasdfas';
+            let blogTitle = blogTitleField.value.split(" ").join("-");
+            let id = '';
+
+            for(let i =0; i< 4; i++){
+                id += letters[Math.floor(Math.random() * letters.length)];
+            }
+            docName = `${blogTitle}-${id}`;
         }
+        else{
+            docName = decodeURI(blogID[0]);
+        }
+
+        
 
         //setting up docName
 
-        let docName = `${blogTitle}-${id}`;
+        
         let date = new Date();
-
+     
         db.collection("blogs").doc(docName).set({
             title: blogTitleField.value,
             article: articleFeild.value,
             bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`,
+            author: auth.currentUser.email.split("@")[0] 
         }).then(()=>{
             location.href = `/${docName}`;
         })
@@ -79,3 +91,41 @@ publishBtn.addEventListener('click', ()=>{
 
     }
 })
+
+//checking for user logged in or out 
+
+auth.onAuthStateChanged((user)=>{
+    if(!user){
+        location.replace("/admin")
+    }
+    // else{
+    //     setupLoginButton(); 
+    // }
+})
+
+
+//checking existing
+
+let blogID= location.pathname.split("/");
+blogID.shift();
+
+if(blogID[0] != "editor"){
+    let docRef= db.collection("blogs").doc(decodeURI(blogID[0]));
+
+    docRef.get().then((doc)=>{
+        console.log(doc);
+        if(doc.exists){
+            let data = doc.data();
+            bannerPath = data.bannerImage;
+            banner.style.backgroundImage = `url(${bannerPath})` 
+            blogTitleField.value = data.title;
+            articleFeild.value = data.article
+        }
+        else{
+            location.replace("/")
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}

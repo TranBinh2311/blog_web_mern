@@ -24,10 +24,20 @@ const setupBlog = (data) =>{
 
     titleTag.innerHTML += blogTitle.innerHTML = data.title;
     publish.innerHTML += data.publishedAt;
-
+    publish.innerHTML += ` -- ${data.author}`
+    // try{
+    //     if(data.author == author.currentUser.email.split('@')[0]){
+    //         console.log("hi");
+    //         let editBtn = document.querySelector('edit-blog-btn');
+    //         editBtn.style.display = "inline-block";
+    //         editBtn.href = `${blogId}/editor`;
+    //     }
+    // }
+    // catch(err){
+    //     console.log(err);
+    // }
     const article = document.querySelector('.article');
     addArticle(article, data.article);
-
 }
 
 

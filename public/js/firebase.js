@@ -16,8 +16,11 @@
 
 firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore();
- // Initialize Firebase
-//  const app = initializeApp(firebaseConfig);
-//  let db = getFirestore(app);
+let auth = firebase.auth();
+ 
+const logoutUser = () =>{
+   auth.signOut();
+   location.reload();
+}
 
 
