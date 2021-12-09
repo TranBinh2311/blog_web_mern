@@ -37,5 +37,13 @@ body{
 .btn.danger{
     background: #f00;
     color: #fff;
-    margin: 0 10px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .btn{
+        padding: 6px 6px;
+        font-size: 12px;
+        margin: 0 2px;
+    }
 }
