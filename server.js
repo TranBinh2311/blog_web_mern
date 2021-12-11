@@ -24,7 +24,7 @@ app.post('/upload', (req, res) => {
     // image name
     let imagename = date.getDate() + date.getTime() + file.name;
     // image upload path
-    let path = 'public/upload/' + imagename;
+    let path = 'public/img/' + imagename;
 
     // create upload
     file.mv(path, (err, result) => {
@@ -32,7 +32,7 @@ app.post('/upload', (req, res) => {
             throw err;
         } else{
             // our image upload path
-            res.json(`upload/${imagename}`)
+            res.json(`img/${imagename}`)
         }
     })
 })
@@ -49,8 +49,6 @@ app.get("/:blog", (req,res)=>{
 app.get("/:blog/editor", (req,res)=>{
     res.sendFile(path.join(initial_path, "editor.html"));
 })
-
-
 
 app.use((req, res)=>{
     res.json("404 Not Found")

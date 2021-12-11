@@ -4,7 +4,7 @@ let docRef= db.collection("blogs").doc(blogId);
 
 
 docRef.get().then((doc)=>{
-    if(doc.exists){
+    if(doc){
         // console.log(doc.data());
         setupBlog(doc.data())
     }
