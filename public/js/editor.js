@@ -20,8 +20,8 @@ uploadInput.addEventListener('change', () => {
 
 const uploadImage = (uploadFile, uploadType) => {
     const [file] = uploadFile.files;
-    
-    if(file && file.type.includes("image")){
+    // && file.type.includes("image")
+    if(file ){
         const formdata = new FormData();
         formdata.append('image', file);
 
